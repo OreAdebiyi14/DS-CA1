@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import dao.DepositDAO;
 import model.Deposit;
 
+@Path("/deposits")
 public class DepositDBCRUD {
     private DepositDAO depositDAO = new DepositDAO();
 

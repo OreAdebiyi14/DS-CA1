@@ -31,7 +31,7 @@ public class Student
     }
 
     public static String getName() {
-        return getName();
+        return getName();  
     }
 
     public void setName(String name) {

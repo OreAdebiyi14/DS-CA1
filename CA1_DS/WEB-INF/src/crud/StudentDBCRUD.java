@@ -13,15 +13,25 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
 import dao.StudentDAO;
 import model.Student;
 
-@Path("/students")
+@Path("/student")
 public class StudentDBCRUD 
 {
    private StudentDAO studentDAO = new StudentDAO();
 
-   @GET
+   @POST
+   @Path("/create")
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response createStudent(Student student) {
+       // Logic to save student in the database
+       return Response.status(201).entity("Student created").build();
+   }
+
+    @GET
+    @Path("json/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Student> getAllStudents() {
         return studentDAO.getAllStudents();
@@ -34,16 +44,8 @@ public class StudentDBCRUD
         return studentDAO.findStudent(studentId);
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String createStudent(Student student) {
-        studentDAO.saveStudent(student);
-        return "Student added: " + student.getName();
-    }
-
     @PUT
-    @Path("/{studentId}")
+    @Path("/{update}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Student updateStudent(@PathParam("studentId") int studentId, Student student) {
@@ -53,12 +55,10 @@ public class StudentDBCRUD
     }
 
     @DELETE
-    @Path("/{studentId}")
+    @Path("/{delete}")
     @Produces(MediaType.TEXT_PLAIN)
     public String deleteStudent(@PathParam("studentId") Long studentId) {
         studentDAO.deleteStudent(studentId);
         return "Student with ID " + studentId + " deleted.";
     }
-   
-    
 }
