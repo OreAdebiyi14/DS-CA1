@@ -11,17 +11,13 @@ import model.Student;
 
 public class StudentDAO 
 {
-    //SHOULD HAVE:
-    //1. saveStudent()
-    //2. findStudent()
-    //3. updateStudent()
-    //4. deleteStudent()
     
     protected static EntityManagerFactory emf = 
 		Persistence.createEntityManagerFactory("ca1DS");
 
 		public StudentDAO() {}
-		 	
+		
+        //need
         public void saveStudent(Student student) {
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
@@ -30,12 +26,12 @@ public class StudentDAO
             em.close();
         }
 
-        public Student findStudent(Long studentId) {
-            EntityManager em = emf.createEntityManager();
-            Student student = em.find(Student.class, studentId);
-            em.close();
-            return student;
-        }
+        // public Student findStudent(Long studentId) {
+        //     EntityManager em = emf.createEntityManager();
+        //     Student student = em.find(Student.class, studentId);
+        //     em.close();
+        //     return student;
+        // }
 
         public void updateStudent(Student student) {
             EntityManager em = emf.createEntityManager();
@@ -45,6 +41,7 @@ public class StudentDAO
             em.close();
         }
 
+        //need
         public void deleteStudent(Long studentId) {
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
@@ -55,7 +52,8 @@ public class StudentDAO
             em.getTransaction().commit();
             em.close();
         }
-
+        
+        //need
         public List<Student> getAllStudents() {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
@@ -66,14 +64,14 @@ public class StudentDAO
 			return student;
 		}
 		
-		public Student getStudentByName(String studentName) {
-			EntityManager em = emf.createEntityManager();
-			em.getTransaction().begin();
-			Student e = em.createQuery("SELECT s FROM Student s WHERE s.studentName = :studentName", Student.class)
-	                .setParameter("studentName", studentName)
-	                .getSingleResult();
-			em.getTransaction().commit();
-			em.close();
-			return e;
-		}
+		// public Student getStudentByName(String studentName) {
+		// 	EntityManager em = emf.createEntityManager();
+		// 	em.getTransaction().begin();
+		// 	Student e = em.createQuery("SELECT s FROM Student s WHERE s.studentName = :studentName", Student.class)
+	    //             .setParameter("studentName", studentName)
+	    //             .getSingleResult();
+		// 	em.getTransaction().commit();
+		// 	em.close();
+		// 	return e;
+		// }
 }

@@ -15,7 +15,7 @@ public class Student
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String studentNumber;
-    private int phoneNumber;
+    private String phoneNumber;
     private String address;
     private String programmeCode;
 
@@ -30,13 +30,6 @@ public class Student
         this.id = id;
     }
 
-    public static String getName() {
-        return getName();  
-    }
-
-    public void setName(String name) {
-    }
-
     public String getStudentNumber() {
         return studentNumber;
     }
@@ -45,11 +38,11 @@ public class Student
         this.studentNumber = studentNumber;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
