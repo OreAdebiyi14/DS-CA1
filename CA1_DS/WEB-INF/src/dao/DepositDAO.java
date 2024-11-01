@@ -22,20 +22,20 @@ public class DepositDAO
         em.close();
     }
 
-    public Deposit findDeposit(Long depositId) {
-        EntityManager em = emf.createEntityManager();
-        Deposit deposit = em.find(Deposit.class, depositId);
-        em.close();
-        return deposit;
-    }
+    // public Deposit findDeposit(Long depositId) {
+    //     EntityManager em = emf.createEntityManager();
+    //     Deposit deposit = em.find(Deposit.class, depositId);
+    //     em.close();
+    //     return deposit;
+    // }
 
-    public void updateDeposit(Deposit deposit) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(deposit);
-        em.getTransaction().commit();
-        em.close();
-    }
+    // public void updateDeposit(Deposit deposit) {
+    //     EntityManager em = emf.createEntityManager();
+    //     em.getTransaction().begin();
+    //     em.merge(deposit);
+    //     em.getTransaction().commit();
+    //     em.close();
+    // }
 
     public void deleteDeposit(Long depositId) {
         EntityManager em = emf.createEntityManager();

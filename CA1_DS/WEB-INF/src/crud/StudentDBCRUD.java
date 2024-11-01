@@ -1,8 +1,6 @@
 package crud;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,39 +21,14 @@ public class StudentDBCRUD {
     private static Map<Integer, Student> students = new HashMap<>(); // Use Integer for ID
     private static int currentId = 1; // ID tracker for new students
 
-    static {
-        // Initial test student
-        Student student1 = new Student();
-        student1.setId(currentId++);
-        student1.setStudentNumber("123445");
-        student1.setPhoneNumber("089222200"); // Ensure phone number is a String
-        student1.setAddress("333 fake address");
-        student1.setProgrammeCode("tu988");
-        students.put(student1.getId(), student1);
-    }
-
-    @GET
-    @Path("/health")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response healthCheck() {
-        return Response.ok("Service is running").build();
-    }
-
     @POST
-    @Path("/createStudent")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createStudent(Student student) {
-        student.setId(currentId++); // Assign a new ID
+        student.setId(currentId++); // Set the ID for the new student
         students.put(student.getId(), student); // Save student to map
-        return Response.status(201).entity(student).build(); // Return created student
-    }
-
-    @GET
-    @Path("/json/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> getAllStudents() {
-        return new ArrayList<>(students.values()); // Return all students
+        return Response.status(201).entity(student).build();
     }
 
     @PUT
@@ -82,3 +55,4 @@ public class StudentDBCRUD {
         return Response.ok("Student with ID " + studentId + " deleted.").build();
     }
 }
+

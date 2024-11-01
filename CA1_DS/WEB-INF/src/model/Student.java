@@ -13,17 +13,17 @@ public class Student
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String studentNumber;
-    private String phoneNumber;
-    private String address;
-    private String programmeCode;
-
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private Loan loan;
-
-    public int getId() {
-        return id;
+    private static int id;
+        private String studentNumber;
+        private String phoneNumber;
+        private String address;
+        private String programmeCode;
+    
+        @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+        private Loan loan;
+    
+        public static int getId() {
+            return id;
     }
 
     public void setId(int id) {
