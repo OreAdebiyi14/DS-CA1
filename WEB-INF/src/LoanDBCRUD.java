@@ -18,6 +18,7 @@ public class LoanDBCRUD {
 
     // Create a new loan
     @POST
+    @PATH("/createLoan")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON) // Change to JSON response
     public Response createLoan(Loan loan) {

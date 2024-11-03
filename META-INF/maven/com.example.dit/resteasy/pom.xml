@@ -66,6 +66,22 @@
         <version>2.0-beta-2</version>
     </dependency>
 
+    <!-- Jackson Dependencies -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.14.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.14.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.14.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -87,7 +103,7 @@
         <configuration>
           <webResources>
             <resource>
-              <directory>${basedir}/WEB-INF</directory>
+              <directory>${basedir}/WEB-INF/</directory>
               <includes>
                 <include>web.xml</include>
               </includes>

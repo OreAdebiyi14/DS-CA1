@@ -19,21 +19,24 @@ import model.Student;
 public class StudentDBCRUD {
 
     private static Map<Integer, Student> students = new HashMap<>(); // Use Integer for ID
-    private static int currentId = 1; // ID tracker for new students
+    private StudentDAO studentDAO = new StudentDAO();
 
     @POST
-    @Path("/create")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createStudent(Student student) {
-        if (student == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Student object is null").build();
-        }
-        student.setId(currentId++); // Set the ID for the new student
-        students.put(student.getId(), student); // Save student to map
-        return Response.status(Response.Status.CREATED).entity(student).build();
+    @Path("/createstudent")
+    @Consumes("application/json")  // Accept JSON payload
+    @Produces("application/json")  // Respond with JSON
+    public Student createStudent(Student student) {
+        studentDAO.persist(student);
+        return student;
     }
 
+    @GET
+    @Path("/allstudents")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Student> listStudents() {
+        return studentDAO.getAllStudents();
+    }
+    
     @PUT
     @Path("/update/{studentId}")
     @Consumes(MediaType.APPLICATION_JSON)

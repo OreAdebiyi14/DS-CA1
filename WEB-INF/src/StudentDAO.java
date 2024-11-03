@@ -11,20 +11,18 @@ import model.Student;
 
 public class StudentDAO 
 {
+        protected static EntityManagerFactory emf = 
+        Persistence.createEntityManagerFactory("ca1DS");
     
-    protected static EntityManagerFactory emf = 
-		Persistence.createEntityManagerFactory("ca1DS");
+    public StudentDAO() {}
 
-		public StudentDAO() {}
-		
-        //need
-        public void saveStudent(Student student) {
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            em.persist(student);
-            em.getTransaction().commit();
-            em.close();
-        }
+    public void persist(Student student) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(student);
+        em.getTransaction().commit();
+        em.close();
+    }
 
         // public Student findStudent(Long studentId) {
         //     EntityManager em = emf.createEntityManager();
@@ -63,7 +61,7 @@ public class StudentDAO
 			em.close();
 			return student;
 		}
-		
+        
 		// public Student getStudentByName(String studentName) {
 		// 	EntityManager em = emf.createEntityManager();
 		// 	em.getTransaction().begin();
