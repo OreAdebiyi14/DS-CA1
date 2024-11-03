@@ -53,13 +53,13 @@ public class StudentDBCRUD {
     }
 
     @DELETE
-    @Path("/delete/{studentId}")
+    @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteStudent(@PathParam("studentId") int studentId) {
-        if (!students.containsKey(studentId)) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
-        }
-        Student deletedStudent = students.remove(studentId); // Remove student from map
-        return Response.ok(deletedStudent).entity("Student with ID " + studentId + " deleted.").build();
+    public String deleteEmployee(@PathParam("id")int id){
+		StudentDAO dao = new StudentDAO();
+		Student emp = dao.getStudentById(id);
+		dao.removeStudent(emp);	
+		return "Employee "+emp+" deleted";
     }
+
 }

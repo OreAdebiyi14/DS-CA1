@@ -1,12 +1,16 @@
 package model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name = "deposit")
 @Entity
 public class Deposit 
 {
@@ -14,7 +18,7 @@ public class Deposit
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long depositId;
     private String depositDate;
-    private double amount;
+    private BigDecimal amount;
     
     @ManyToOne
     @JoinColumn(name = "loan_id")
@@ -24,6 +28,21 @@ public class Deposit
     @JoinColumn(name = "student_id")
     private Student student;
 
+    public Deposit()
+    {
+
+    }
+
+    public Deposit(Long depositId, String depositDate, BigDecimal amount, Loan loan, Student student) {
+        this.depositId = depositId;
+        this.depositDate = depositDate;
+        this.amount = amount;
+        this.loan = loan;
+        this.student = student;
+    }
+
+
+    @XmlElement
     public Long getDepositId() {
         return depositId;
     }
@@ -32,6 +51,7 @@ public class Deposit
         this.depositId = depositId;
     }
 
+    @XmlElement
     public String getDepositDate() {
         return depositDate;
     }
@@ -40,14 +60,16 @@ public class Deposit
         this.depositDate = depositDate;
     }
 
-    public double getAmount() {
+    @XmlElement
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
+    @XmlElement
     public Loan getLoan() {
         return loan;
     }
@@ -56,6 +78,7 @@ public class Deposit
         this.loan = loan;
     }
 
+    @XmlElement
     public Student getStudent() {
         return student;
     }

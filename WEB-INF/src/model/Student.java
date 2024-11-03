@@ -28,7 +28,7 @@ public class Student
     public Student(int id, String name, String phoneNumber, String address, String programmeCode) {
         this.id = id;
         this.name = name;
-        this.phoneNumber = phoneNumber; // Update constructor parameter
+        this.phoneNumber = phoneNumber;
         this.address = address;
         this.programmeCode = programmeCode;
     }

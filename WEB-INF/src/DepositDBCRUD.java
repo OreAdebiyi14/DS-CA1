@@ -6,11 +6,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Deposit;
+
 import java.util.List;
 
 @Path("/deposits")
@@ -19,66 +19,37 @@ public class DepositDBCRUD {
 
     // Create a new deposit
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON) // Change to JSON response
-    public Response createDeposit(Deposit deposit, @QueryParam("studentId") Long studentId) {
+    @Path("/depositLoan")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})  // Accept both JSON and XML
+    public Deposit createDeposit(Deposit deposit) {
         depositDAO.saveDeposit(deposit);
-        depositDAO.associateStudentToDeposit(deposit.getDepositId(), studentId); // Associate student
-        return Response.status(Response.Status.CREATED) // 201 Created
-                .entity("Deposit added for student ID: " + studentId)
-                .build();
+        return deposit;
     }
 
     // Delete a deposit by ID
     @DELETE
-    @Path("/{depositId}")
-    @Produces(MediaType.APPLICATION_JSON) // Change to JSON response
-    public Response deleteDeposit(@PathParam("depositId") Long depositId) {
-        boolean isDeleted = depositDAO.deleteDeposit(depositId);
-        if (isDeleted) {
-            return Response.ok("Deposit with ID " + depositId + " deleted.").build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Deposit with ID " + depositId + " not found.")
-                    .build();
-        }
-    }
-
-    // Get a deposit by ID
-    @GET
-    @Path("/{depositId}")
+    @Path("/delete/{deposit_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDeposit(@PathParam("depositId") Long depositId) {
-        Deposit deposit = depositDAO.getDepositById(depositId); // Implement this in your DAO
-        if (deposit != null) {
-            return Response.ok(deposit).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Deposit with ID " + depositId + " not found.")
-                    .build();
-        }
+    public String deleteLoan(@PathParam("deposit_id")long depositId){
+		DepositDAO dao = new DepositDAO();
+		Deposit emp = dao.getDepositById(depositId);
+		dao.deleteDeposit(emp);	
+		return "Deposit "+emp+" deleted";
     }
 
     // Get all deposits
     @GET
+    @Path("/alldeposits")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllDeposits() {
         List<Deposit> deposits = depositDAO.getAllDeposits(); // Implement this in your DAO
         return Response.ok(deposits).build();
     }
 
-    // Get all deposits for a specific student
     @GET
-    @Path("/student/{studentId}")
+    @Path("/deposit/{depositId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDepositsByStudent(@PathParam("studentId") Long studentId) {
-        List<Deposit> deposits = depositDAO.getDepositsByStudent(studentId); // Use the correct DAO method
-        if (deposits == null || deposits.isEmpty()) { // Check for null and empty list
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("No deposits found for student ID " + studentId)
-                    .build();
-        }
-        return Response.ok(deposits).build();
+    public List<Deposit> getDepositsByStudent(@PathParam("studentId") Long studentId) {
+        return depositDAO.getDepositsByStudent(studentId);
     }
-
 }

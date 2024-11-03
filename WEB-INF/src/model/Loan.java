@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,14 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "loan")
 @Entity
 public class Loan 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long loanId;
-    private double amount;
+    private Long loan_id;
+    private BigDecimal amount;
     private double interestRate;
 
     @OneToOne
@@ -27,15 +31,29 @@ public class Loan
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
     private List<Deposit> deposits;
 
+    public Loan()
+    {
 
+    }
+
+    public Loan(Long loan_id, BigDecimal amount, double interestRate, Student student, List<Deposit> deposits) {
+        this.loan_id = loan_id;
+        this.amount = amount;
+        this.interestRate = interestRate;
+        this.student = student;
+        this.deposits = deposits;
+    }
+
+    @XmlElement
     public Long getLoanId() {
-        return loanId;
+        return loan_id;
     }
 
-    public void setLoanId(Long loanId) {
-        this.loanId = loanId;
+    public void setLoanId(Long loan_id) {
+        this.loan_id = loan_id;
     }
 
+    @XmlElement
     public double getInterestRate() {
         return interestRate;
     }
@@ -44,14 +62,16 @@ public class Loan
         this.interestRate = interestRate;
     }
 
-    public double getAmount() {
+    @XmlElement
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
+    @XmlElement
     public Student getStudent() {
         return student;
     }
@@ -60,6 +80,7 @@ public class Loan
         this.student = student;
     }
 
+    @XmlElement
     public List<Deposit> getDeposits() {
         return deposits;
     }

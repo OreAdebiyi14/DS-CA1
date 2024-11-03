@@ -43,16 +43,25 @@ public class StudentDAO {
         }
 
         //need
-        public void deleteStudent(Long studentId) {
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            Student student = em.find(Student.class, studentId);
-            if (student != null) {
-                em.remove(student);
-            }
-            em.getTransaction().commit();
-            em.close();
-        }
+        public void removeStudent(Student student) {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			em.remove(em.merge(student));
+			em.getTransaction().commit();
+			em.close();
+		}
+
+        public Student getStudentById(int id) {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Student e = em.createQuery("SELECT p FROM Student p WHERE p.id = :id", Student.class)
+	                .setParameter("id", id)
+	                .getSingleResult();
+			em.getTransaction().commit();
+			em.close();
+			return e;
+		}
+		
         
         //need
         public List<Student> getAllStudents() {
