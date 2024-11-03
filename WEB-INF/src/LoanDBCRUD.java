@@ -1,5 +1,3 @@
-package crud;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -9,7 +7,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import dao.LoanDAO;
 import model.Loan;
 
 @Path("/loans")
@@ -18,7 +15,7 @@ public class LoanDBCRUD {
 
     // Create a new loan
     @POST
-    @PATH("/createLoan")
+    @Path("/createLoan")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON) // Change to JSON response
     public Response createLoan(Loan loan) {

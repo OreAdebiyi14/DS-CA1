@@ -1,28 +1,40 @@
 package model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement(name = "student")
 @Entity
 public class Student 
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static int id;
-        private String name;
-        private String phoneNumber;
-        private String address;
-        private String programmeCode;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+
+    private String name;
+    private String phoneNumber;
+    private String address;
+    private String programmeCode;
+
+    public Student()
+    {
+
+    }
+
+    public Student(int id, String name, String phoneNumber, String address, String programmeCode) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber; // Update constructor parameter
+        this.address = address;
+        this.programmeCode = programmeCode;
+    }
     
-        @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-        private Loan loan;
-    
-    public static int getId() {
+    @XmlElement
+    public int getId() {
             return id;
     }
 
@@ -30,6 +42,7 @@ public class Student
         this.id = id;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -38,6 +51,7 @@ public class Student
         this.name = name;
     }
 
+    @XmlElement
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -46,6 +60,7 @@ public class Student
         this.phoneNumber = phoneNumber;
     }
 
+    @XmlElement
     public String getAddress() {
         return address;
     }
@@ -54,20 +69,13 @@ public class Student
         this.address = address;
     }
 
+    @XmlElement
     public String getProgrammeCode() {
         return programmeCode;
     }
 
     public void setProgrammeCode(String programmeCode) {
         this.programmeCode = programmeCode;
-    }
-
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
     }
 
     

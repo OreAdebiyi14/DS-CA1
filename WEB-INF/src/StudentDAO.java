@@ -1,5 +1,3 @@
-package dao;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,27 +7,32 @@ import javax.persistence.Persistence;
 
 import model.Student;
 
-public class StudentDAO 
-{
-        protected static EntityManagerFactory emf = 
-        Persistence.createEntityManagerFactory("ca1DS");
-    
-    public StudentDAO() {}
+public class StudentDAO {
+   
+    protected EntityManagerFactory emf;
 
-    public void persist(Student student) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(student);
-        em.getTransaction().commit();
-        em.close();
+    public StudentDAO() {
+        emf = Persistence.createEntityManagerFactory("mydb"); 
     }
 
-        // public Student findStudent(Long studentId) {
-        //     EntityManager em = emf.createEntityManager();
-        //     Student student = em.find(Student.class, studentId);
-        //     em.close();
-        //     return student;
-        // }
+    public void persist(Student student) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(student);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace(); // Log the exception
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
         public void updateStudent(Student student) {
             EntityManager em = emf.createEntityManager();
@@ -61,15 +64,5 @@ public class StudentDAO
 			em.close();
 			return student;
 		}
-        
-		// public Student getStudentByName(String studentName) {
-		// 	EntityManager em = emf.createEntityManager();
-		// 	em.getTransaction().begin();
-		// 	Student e = em.createQuery("SELECT s FROM Student s WHERE s.studentName = :studentName", Student.class)
-	    //             .setParameter("studentName", studentName)
-	    //             .getSingleResult();
-		// 	em.getTransaction().commit();
-		// 	em.close();
-		// 	return e;
-		// }
+
 }

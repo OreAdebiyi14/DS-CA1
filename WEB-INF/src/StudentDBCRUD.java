@@ -1,6 +1,5 @@
-package crud;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,16 +14,16 @@ import javax.ws.rs.core.Response;
 
 import model.Student;
 
+
 @Path("/student")
 public class StudentDBCRUD {
 
-    private static Map<Integer, Student> students = new HashMap<>(); // Use Integer for ID
-    private StudentDAO studentDAO = new StudentDAO();
+    private static Map<String, Student> students = new HashMap<String, Student>();
+	private StudentDAO studentDAO = new StudentDAO();
 
     @POST
     @Path("/createstudent")
-    @Consumes("application/json")  // Accept JSON payload
-    @Produces("application/json")  // Respond with JSON
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})  // Accept both JSON and XML
     public Student createStudent(Student student) {
         studentDAO.persist(student);
         return student;
@@ -49,7 +48,7 @@ public class StudentDBCRUD {
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
         }
         student.setId(studentId); 
-        students.put(studentId, student); // Update student in map
+       // students.put(studentId, student); // Update student in map
         return Response.status(Response.Status.NO_CONTENT).build(); // 204 No Content
     }
 
