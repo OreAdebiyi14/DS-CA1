@@ -22,7 +22,7 @@ public class Loan
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loan_id;
     private BigDecimal amount;
-    private double interestRate;
+    private BigDecimal interestRate;
 
     @OneToOne
     @JoinColumn(name = "student_id")
@@ -31,12 +31,14 @@ public class Loan
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
     private List<Deposit> deposits;
 
+    
+
     public Loan()
     {
 
     }
 
-    public Loan(Long loan_id, BigDecimal amount, double interestRate, Student student, List<Deposit> deposits) {
+    public Loan(Long loan_id, BigDecimal amount, BigDecimal interestRate, Student student, List<Deposit> deposits) {
         this.loan_id = loan_id;
         this.amount = amount;
         this.interestRate = interestRate;
@@ -54,11 +56,11 @@ public class Loan
     }
 
     @XmlElement
-    public double getInterestRate() {
+    public BigDecimal getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(double interestRate) {
+    public void setInterestRate(BigDecimal interestRate) {
         this.interestRate = interestRate;
     }
 

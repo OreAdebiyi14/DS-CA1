@@ -16,7 +16,8 @@ public class Deposit
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long depositId;
+    private Long deposit_id;
+
     private String depositDate;
     private BigDecimal amount;
     
@@ -33,8 +34,8 @@ public class Deposit
 
     }
 
-    public Deposit(Long depositId, String depositDate, BigDecimal amount, Loan loan, Student student) {
-        this.depositId = depositId;
+    public Deposit(Long deposit_id, String depositDate, BigDecimal amount, Loan loan, Student student) {
+        this.deposit_id = deposit_id;
         this.depositDate = depositDate;
         this.amount = amount;
         this.loan = loan;
@@ -44,11 +45,11 @@ public class Deposit
 
     @XmlElement
     public Long getDepositId() {
-        return depositId;
+        return deposit_id;
     }
 
-    public void setDepositId(Long depositId) {
-        this.depositId = depositId;
+    public void setDepositId(Long deposit_id) {
+        this.deposit_id = deposit_id;
     }
 
     @XmlElement

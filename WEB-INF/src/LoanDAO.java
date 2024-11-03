@@ -82,6 +82,6 @@ public class LoanDAO
 	                .getSingleResult();
             em.getTransaction().commit();
             em.close();
-            return e;       
+            return e;
     }
 }

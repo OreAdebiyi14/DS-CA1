@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -6,8 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import model.Deposit;
-import model.Loan;
-
 
 public class DepositDAO 
 {
@@ -23,20 +20,11 @@ public class DepositDAO
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
-            Loan loan = em.find(Loan.class, deposit.getLoan().getLoanId());
-
-            if (loan != null) {
-                // Decrease the loan amount by the deposit amount
-                BigDecimal updatedAmount = loan.getAmount().subtract(deposit.getAmount());
-                loan.setAmount(updatedAmount);
-                em.merge(loan);  // Persist the updated loan
-            }
             em.persist(deposit);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
-                System.out.println("Transaction rolled back due to error.");
             }
             e.printStackTrace();
         } finally {
@@ -65,6 +53,20 @@ public class DepositDAO
 			em.close();
     }
 
+    public Deposit getDepositById(long deposit_id) 
+    {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+			Deposit e = em.createQuery(
+                "SELECT p FROM Deposit p WHERE p.deposit_id = :deposit_id", 
+                Deposit.class)
+	                .setParameter("deposit_id", deposit_id)
+	                .getSingleResult();
+            em.getTransaction().commit();
+            em.close();
+            return e;       
+    }
+
     public List<Deposit> getAllDeposits() {
         EntityManager em = emf.createEntityManager();
         List<Deposit> deposits = null;
@@ -81,19 +83,6 @@ public class DepositDAO
             em.close(); // Ensure EntityManager is closed
         }
         return deposits; // Return the list of deposits
-    }
-
-    public Deposit getDepositById(Long depositId) {
-        EntityManager em = emf.createEntityManager();
-        Deposit deposit = null;
-        try {
-            deposit = em.find(Deposit.class, depositId);
-        } catch (Exception e) {
-            e.printStackTrace(); // Handle logging appropriately
-        } finally {
-            em.close(); // Ensure EntityManager is closed
-        }
-        return deposit; // Return null if not found
     }
 
     //need to create path
