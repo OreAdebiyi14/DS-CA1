@@ -18,6 +18,7 @@ public class Student
     private String name;
     private String phoneNumber;
     private String address;
+    private String studentNumber;
     private String programmeCode;
 
     public Student()
@@ -25,11 +26,12 @@ public class Student
 
     }
 
-    public Student(Long id, String name, String phoneNumber, String address, String programmeCode) {
+    public Student(Long id, String name, String phoneNumber, String address, String studentNumber, String programmeCode) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.studentNumber = studentNumber;
         this.programmeCode = programmeCode;
     }
     
@@ -67,6 +69,15 @@ public class Student
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @XmlElement
+    public String getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
     @XmlElement
