@@ -26,7 +26,6 @@ public class Deposit
     
     @ManyToOne(fetch = FetchType.EAGER)//so loan object is always fetched along with deposit
     @JoinColumn(name = "loan_id")
-    @XmlTransient
     private Loan loan;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -74,7 +73,7 @@ public class Deposit
         this.amount = amount;
     }
 
-    @XmlTransient
+    
     public Loan getLoan() {
         return loan;
     }

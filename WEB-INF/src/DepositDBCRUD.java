@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.Deposit;
+
 import java.util.List;
 
 @Path("/deposits")
@@ -20,10 +21,10 @@ public class DepositDBCRUD {
     @POST
     @Path("/depositLoan")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})  // Accept both JSON and XML
-    public Deposit createDeposit(Deposit deposit) {
-        System.out.println("Received Deposit Object: " + deposit);
+    public String createDeposit(Deposit deposit) {
         depositDAO.saveDeposit(deposit);
-        return deposit;
+        
+        return "Deposit was created \n" + deposit;
     }
 
     @DELETE
@@ -44,11 +45,11 @@ public class DepositDBCRUD {
         return depositDAO.getAllDeposits();
     }
 
-    @GET
-    @Path("/studentdeposit/{studentId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Deposit> getDepositsByStudent(@PathParam("studentId") Long id) {
-        return depositDAO.getDepositsByStudent(id);
-    }
+    // @GET
+    // @Path("/studentdeposit/{id}")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public List<Student> getDepositsByStudent(@PathParam("id") Long id) {
+    //     return depositDAO.getDepositsByStudent(id);
+    // }
 
 }

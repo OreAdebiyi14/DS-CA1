@@ -85,26 +85,26 @@ public class DepositDAO
         return deposits; // Return the list of deposits
     }    
 
-    //need to create path
-    public List<Deposit> getDepositsByStudent(Long studentId) {
-        EntityManager em = emf.createEntityManager();
-        List<Deposit> deposits = null;
-        try {
-            em.getTransaction().begin();
-            deposits = em.createQuery("SELECT d FROM Deposit d WHERE d.student.studentId = :studentId", Deposit.class)
-                          .setParameter("studentId", studentId)
-                          .getResultList();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Rollback on error
-            }
-            e.printStackTrace(); // Handle logging appropriately
-        } finally {
-            em.close(); // Ensure EntityManager is closed
-        }
-        return deposits; // Return the list of deposits
-    }
+    
+    // public List<Student> getDepositsByStudent(Long student_id) {
+    //     EntityManager em = emf.createEntityManager();
+    //     List<Student> deposits = null;
+    //     try {
+    //         em.getTransaction().begin();
+    //         deposits = em.createQuery("SELECT d FROM Deposit d WHERE d.student_id = :student_id", Student.class)
+    //                       .setParameter("student_id", student_id)
+    //                       .getResultList();
+    //         em.getTransaction().commit();
+    //     } catch (Exception e) {
+    //         if (em.getTransaction().isActive()) {
+    //             em.getTransaction().rollback(); // Rollback on error
+    //         }
+    //         e.printStackTrace(); // Handle logging appropriately
+    //     } finally {
+    //         em.close(); // Ensure EntityManager is closed
+    //     }
+    //     return deposits; // Return the list of deposits
+    // }
 
     
     

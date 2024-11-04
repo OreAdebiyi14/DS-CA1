@@ -54,25 +54,6 @@ public class LoanDAO
 			em.close();
     }
 
-    public List<Loan> getAllLoans() {
-        EntityManager em = emf.createEntityManager();
-        List<Loan> loans = null;
-        try {
-            em.getTransaction().begin();
-            loans = em.createQuery("from Loan", Loan.class).getResultList();
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Rollback on error
-            }
-            e.printStackTrace(); // Handle logging appropriately
-        } finally {
-            em.close(); // Ensure EntityManager is closed
-        }
-        return loans; // Return the list of loans
-    }
-
-
     public Loan getLoanById(long loan_id) 
     {
         EntityManager em = emf.createEntityManager();
@@ -84,4 +65,6 @@ public class LoanDAO
             em.close();
             return e;
     }
+
+
 }

@@ -33,7 +33,7 @@ public class LoanDBCRUD {
 		LoanDAO dao = new LoanDAO();
 		Loan emp = dao.getLoanById(loanId);
 		dao.deleteLoan(emp);	
-		return "Loan "+emp+" deleted";
+		return "Loan "+ emp + " was deleted";
     }
 
     
