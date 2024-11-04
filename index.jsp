@@ -8,30 +8,42 @@
     <title>REST Example</title>
     <script type="text/javascript">
         function submitForm() {
-            const formData = {
-                name: document.getElementById('name').value,
-                phone_number: document.getElementById('phone_number').value,
-                address: document.getElementById('address').value,
-                programme_code: document.getElementById('programme_code').value
-            };
+                const name = document.getElementById('name').value || "placeholderName";
+                const phoneNumber = document.getElementById('phone_number').value || "0000000000";
+                const address = document.getElementById('address').value || "placeholderAddress";
+                const programmeCode = document.getElementById('programme_code').value || "placeholderProgrammeCode";
 
-            fetch('http://localhost:8080/DS-CA1/api/student/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                console.log("Status Code:", response.status);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (!name || !phoneNumber || !address || !programmeCode) {
+                    alert("Please fill in all fields.");
+                    return; // Stop the function if validation fails
                 }
-                return response.json();
-            })
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-        }
+
+                const formDataXML = `
+                    <student>
+                        <name>${name}</name>
+                        <phone_number>${phoneNumber}</phone_number>
+                        <address>${address}</address>
+                        <programme_code>${programmeCode}</programme_code>
+                    </student>
+                `;
+
+                fetch('http://localhost:8080/DS-CA1/api/student/createstudent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/xml'
+                    },
+                    body: formDataXML
+                })
+                .then(response => {
+                    console.log("Status Code:", response.status);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+            }
     </script>
 
 </head>

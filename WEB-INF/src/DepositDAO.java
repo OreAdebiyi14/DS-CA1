@@ -67,23 +67,23 @@ public class DepositDAO
             return e;       
     }
 
+
     public List<Deposit> getAllDeposits() {
         EntityManager em = emf.createEntityManager();
         List<Deposit> deposits = null;
         try {
             em.getTransaction().begin();
-            deposits = em.createQuery("from Deposit", Deposit.class).getResultList();
+            deposits = em.createQuery("SELECT d FROM Deposit d JOIN FETCH d.student", Deposit.class).getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Rollback on error
+                em.getTransaction().rollback();
             }
-            e.printStackTrace(); // Handle logging appropriately
-        } finally {
-            em.close(); // Ensure EntityManager is closed
+            e.printStackTrace();
         }
+        em.close();
         return deposits; // Return the list of deposits
-    }
+    }    
 
     //need to create path
     public List<Deposit> getDepositsByStudent(Long studentId) {
@@ -105,5 +105,7 @@ public class DepositDAO
         }
         return deposits; // Return the list of deposits
     }
+
+    
     
 }

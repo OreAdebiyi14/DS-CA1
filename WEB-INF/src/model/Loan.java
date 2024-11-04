@@ -3,8 +3,8 @@ package model;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "loan")
 @Entity
@@ -21,6 +22,7 @@ public class Loan
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loan_id;
+
     private BigDecimal amount;
     private BigDecimal interestRate;
 
@@ -28,15 +30,12 @@ public class Loan
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
+    @XmlTransient
     private List<Deposit> deposits;
 
-    
-
     public Loan()
-    {
-
-    }
+    {}
 
     public Loan(Long loan_id, BigDecimal amount, BigDecimal interestRate, Student student, List<Deposit> deposits) {
         this.loan_id = loan_id;
@@ -82,14 +81,12 @@ public class Loan
         this.student = student;
     }
 
-    @XmlElement
+    @XmlTransient
     public List<Deposit> getDeposits() {
         return deposits;
     }
 
     public void setDeposits(List<Deposit> deposits) {
         this.deposits = deposits;
-    }
-    
-    
+    }  
 }

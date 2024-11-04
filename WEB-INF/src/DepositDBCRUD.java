@@ -7,15 +7,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import model.Deposit;
-import model.Loan;
-
 import java.util.List;
 
 @Path("/deposits")
 public class DepositDBCRUD {
+
+    //private static Map<String, Deposit> deposits = new HashMap<String, Deposit>();
     private DepositDAO depositDAO = new DepositDAO();
 
     // Create a new deposit
@@ -28,45 +26,29 @@ public class DepositDBCRUD {
         return deposit;
     }
 
-    // // Delete a deposit by ID
-    // @DELETE
-    // @Path("/deletedeposit/{deposit_id}")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public String deleteDeposit(@PathParam("deposit_id")long deposit_id){
-	// 	DepositDAO dao = new DepositDAO();
-    //     Deposit deposit = dao.getDepositById(deposit_id);
-    //     if (deposit != null) {
-    //         dao.deleteDeposit(deposit);
-    //     }
-	// 	Deposit emp = dao.getDepositById(deposit_id);
-	// 	dao.deleteDeposit(emp);	
-	// 	return "Deposit "+emp+" deleted";
-    // }
-
     @DELETE
     @Path("/delete/{deposit_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteLoan(@PathParam("deposit_id")long deposit_id){
+    public String deleteDeposit(@PathParam("deposit_id")long deposit_id){
 		DepositDAO dao = new DepositDAO();
 		Deposit emp = dao.getDepositById(deposit_id);
 		dao.deleteDeposit(emp);	
-		return "Loan "+emp+" deleted";
+		return "Deposit "+ emp +" deleted";
     }
-
+    
     // Get all deposits
     @GET
     @Path("/alldeposits")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDeposits() {
-        List<Deposit> deposits = depositDAO.getAllDeposits(); // Implement this in your DAO
-        return Response.ok(deposits).build();
+    public List<Deposit> listDeposits() {
+        return depositDAO.getAllDeposits();
     }
 
-    // @GET
-    // @Path("/deposit/{depositId}")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public List<Deposit> getDepositsByStudent(@PathParam("studentId") Long studentId) {
-    //     return depositDAO.getDepositsByStudent(studentId);
-    // }
+    @GET
+    @Path("/student/{studentId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Deposit> getDepositsByStudent(@PathParam("studentId") Long id) {
+        return depositDAO.getDepositsByStudent(id);
+    }
 
 }

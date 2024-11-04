@@ -3,6 +3,7 @@ package model;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 @XmlRootElement(name = "deposit")
 @Entity
 public class Deposit 
@@ -21,11 +24,12 @@ public class Deposit
     private String depositDate;
     private BigDecimal amount;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)//so loan object is always fetched along with deposit
     @JoinColumn(name = "loan_id")
+    @XmlTransient
     private Loan loan;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private Student student;
 
@@ -70,7 +74,7 @@ public class Deposit
         this.amount = amount;
     }
 
-    @XmlElement
+    @XmlTransient
     public Loan getLoan() {
         return loan;
     }
