@@ -35,31 +35,25 @@ public class StudentDBCRUD {
     public List<Student> listStudents() {
         return studentDAO.getAllStudents();
     }
-    
+
     @PUT
-    @Path("/update/{studentId}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/check/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateStudent(@PathParam("studentId") int studentId, Student student) {
-        if (student == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Student object is null").build();
-        }
-        if (!students.containsKey(studentId)) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
-        }
-        student.setId(studentId); 
-       // students.put(studentId, student); // Update student in map
-        return Response.status(Response.Status.NO_CONTENT).build(); // 204 No Content
+    public String checkStudent(@PathParam("id")Long id){
+		StudentDAO dao = new StudentDAO();
+		Student emp = dao.getStudentById(id);	
+		return "Student : \n"+ emp +" exists";
     }
+
 
     @DELETE
     @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteEmployee(@PathParam("id")int id){
+    public String deleteEmployee(@PathParam("id")Long id){
 		StudentDAO dao = new StudentDAO();
 		Student emp = dao.getStudentById(id);
 		dao.removeStudent(emp);	
-		return "Employee "+emp+" deleted";
+		return "Student "+emp+" deleted";
     }
 
 }

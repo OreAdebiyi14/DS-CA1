@@ -45,7 +45,7 @@ public class DepositDBCRUD {
     }
 
     @GET
-    @Path("/student/{studentId}")
+    @Path("/studentdeposit/{studentId}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Deposit> getDepositsByStudent(@PathParam("studentId") Long id) {
         return depositDAO.getDepositsByStudent(id);

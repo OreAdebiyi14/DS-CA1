@@ -13,7 +13,7 @@ public class Student
 {
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
     private String name;
     private String phoneNumber;
@@ -25,7 +25,7 @@ public class Student
 
     }
 
-    public Student(int id, String name, String phoneNumber, String address, String programmeCode) {
+    public Student(Long id, String name, String phoneNumber, String address, String programmeCode) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -34,12 +34,12 @@ public class Student
     }
     
     @XmlElement
-    public int getId() {
+    public Long getId() {
             return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Long id2) {
+        this.id = id2;
     }
 
     @XmlElement

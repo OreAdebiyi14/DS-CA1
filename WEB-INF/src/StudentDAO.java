@@ -51,7 +51,7 @@ public class StudentDAO {
 			em.close();
 		}
 
-        public Student getStudentById(int id) {
+        public Student getStudentById(Long id) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
 			Student e = em.createQuery("SELECT p FROM Student p WHERE p.id = :id", Student.class)
