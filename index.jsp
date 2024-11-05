@@ -66,48 +66,50 @@
         <button type="button" onclick="submitForm()">Create Student</button>
     </form>
 
-    <form action="http://localhost:8080/DS-CA1/api/student/delete/{studentId}" method="GET">
+    <form action="http://localhost:8080/DS-CA1/api/student/delete/{id}" method="DELETE">
         <input type="submit" value="Delete Student">
     </form>
 
-    <form action="http://localhost:8080/DS-CA1/api/student/" method="GET">  
-        <input type="submit" value="View All Employees">
+    <form action="http://localhost:8080/DS-CA1/api/student/allstudents/" method="GET">  
+        <input type="submit" value="View All Students">
     </form>
     
-    <form action="http://localhost:8080/CA1_DS/api/student/" method="GET">  
-        <input type="submit" value="View JSON All Employees">
+    <form action="http://localhost:8080/DS-CA1/api/student/check/{id}" method="PUT">  
+        <input type="submit" value="View a student">
     </form>
     
-    <form action="http://localhost:8080/CA1_DS/api/student/1" method="GET">  
+    <!-- <form action="http://localhost:8080/CA1_DS/api/student/1" method="GET">  
         <input type="submit" value="View JSON Employee 1">
-    </form>
+    </form> -->
     
     <!-- New forms for loans and deposits -->
     <h2>Loan Operations</h2>
-    <form action="http://localhost:8080/DS-CA1/api/loans" method="POST">
-        <input type="text" name="loanId" placeholder="Loan ID" required>
+    <form action="http://localhost:8080/DS-CA1/api/loans/createLoan/" method="POST">
         <input type="text" name="amount" placeholder="Amount" required>
+        <input type="text" name="interestRate" placeholder="Interest Rate" required>
+        <input type="text" name="id" placeholder="Student ID" required>
         <input type="submit" value="Create Loan">
     </form>
 
-    <form action="http://localhost:8080/resteasyExtended/restful-services/loans/1" method="DELETE">
-        <input type="submit" value="Delete Loan with ID 1">
+    <form action="http://localhost:8080/DS-CA1/api/loans/delete/2" method="DELETE">
+        <input type="submit" value="Delete a loan with Id">
     </form>
 
     <h2>Deposit Operations</h2>
-    <form action="http://localhost:8080/resteasyExtended/restful-services/deposits" method="POST">
-        <input type="text" name="depositId" placeholder="Deposit ID" required>
+    <form action="http://localhost:8080/DS-CA1/api/deposits/depositLoan" method="POST">
+        <input type="text" name="depositDate" placeholder="Date" required>
         <input type="text" name="amount" placeholder="Amount" required>
-        <input type="text" name="studentId" placeholder="Student ID" required>
+        <input type="text" name="loan_id" placeholder="Loan ID" required>
+        <input type="text" name="id" placeholder="Student ID" required>
         <input type="submit" value="Create Deposit">
     </form>
 
-    <form action="http://localhost:8080/resteasyExtended/restful-services/deposits/1" method="DELETE">
-        <input type="submit" value="Delete Deposit with ID 1">
+    <form action="http://localhost:8080/DS-CA1/api/deposits/alldeposits" method="GET">
+        <input type="submit" value="View all deposits">
     </form>
 
-    <form action="http://localhost:8080/resteasyExtended/restful-services/deposits/student/1" method="GET">
-        <input type="submit" value="View Deposits for Student ID 1">
+    <form action="http://localhost:8080/DS-CA1/api/deposits/delete/{deposit_id}" method="DELETE">
+        <input type="submit" value="Delete a deposit">
     </form>
 
 </body>
